@@ -1,0 +1,226 @@
+/* Custom Styles & Utilities for Uniamazonia Ingeniería de Sistemas Portal */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* Base Styles & Typography */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1e293b;
+  background-color: #f8fafc;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Accessible Skip Link */
+.skip-link {
+  position: absolute;
+  top: -9999px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #064e3b;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border-radius: 0 0 0.75rem 0.75rem;
+  z-index: 99999;
+  text-decoration: none;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  transition: top 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0;
+  outline: 3px solid #34d399;
+  outline-offset: 2px;
+}
+
+/* Focus Visible Accessibility */
+:focus-visible {
+  outline: 2px solid #059669;
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+/* Glassmorphic Navbar Effect */
+.glass-nav {
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Hero Gradient */
+.hero-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #064e3b 50%, #022c22 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #059669;
+}
+
+/* Notification & Status Toasts */
+.status-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  max-width: 24rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  z-index: 9999;
+  transform: translateY(150%);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.status-toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Reduced Motion Support (WCAG 2.1 AAA) */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  html.scroll-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .status-toast {
+    transition: opacity 0.01ms !important;
+  }
+}
+
+/* Print Stylesheet (@media print) */
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+  }
+
+  /* Hide interactive / non-printable elements */
+  .skip-link,
+  .glass-nav,
+  header,
+  #mobile-menu,
+  #mobile-menu-btn,
+  .status-toast,
+  .no-print,
+  #filter-semestre,
+  #search-materia,
+  label[for="filter-semestre"],
+  .tab-btn,
+  form,
+  #contacto form,
+  .hero-gradient .absolute {
+    display: none !important;
+  }
+
+  /* Reset layout constraints for print */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  section {
+    padding: 1.5rem 0 !important;
+    page-break-inside: auto;
+  }
+
+  /* Ensure all tab panels are visible in print */
+  .tab-content {
+    display: block !important;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  /* Pensum layout in print */
+  #pensum-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+
+  #pensum-container > div {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #94a3b8 !important;
+    border-radius: 0.5rem !important;
+    margin-bottom: 1rem;
+  }
+
+  /* Link destinations display for external references */
+  a[href^="http"]::after,
+  a[href$=".pdf"]::after {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    color: #475569;
+    word-break: break-all;
+  }
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  /* Print footer */
+  footer {
+    border-top: 1px solid #cbd5e1 !important;
+    padding: 1rem 0 !important;
+    font-size: 8pt !important;
+  }
+}
